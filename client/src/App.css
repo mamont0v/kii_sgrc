@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    color: #5b626b;
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 0.875rem;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}

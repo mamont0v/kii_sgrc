@@ -1,0 +1,17 @@
+.main-content {
+    margin-left: 240px;
+    overflow: hidden;
+    
+    .page-content {
+        padding: calc(70px) calc(24px / 2) 60px calc(24px / 2);
+
+        .container-fluid {
+            width: 100%;
+            padding-right: 12px;
+            padding-left: 12px;
+            margin-right: auto;
+            margin-left: auto;
+
+        }
+    }
+}
