@@ -5,7 +5,7 @@ import { deleteAssets } from '../../../../redux/itAssets/itAssets.action'
 
 export const ItAssetsTable = ({ setCurrentId }) => {
     const fethedAssets = useSelector(state => state.assetsList)
-
+    
     const dispatch = useDispatch()
 
     // const deletePerson = (id) => {

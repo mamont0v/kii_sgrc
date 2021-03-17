@@ -10,20 +10,28 @@ const router = express.Router();
 
 
 //REST API 
+
 //@ GET
-router.get('/', controller.getPersonnel);
+// router.get('/personnel/', controller.showPersonnel);
+
+//@ GET
+router.get('/personnel/', controller.getPersonnel);
 
 //@ GET by ID
 // router.get('/:id', controller.getTest);
 
 //was .put
 //@ EDIT by ID
-router.patch('/:id', controller.updatePersonnel);
+router.patch('/personnel/:id', controller.updatePersonnel);
 
 //@ CREATE new ID
-router.post('/', controller.createPersonnel);
+router.post('/personnel/', controller.createPersonnel);
+
+
 
 //@ DELETE
-router.delete('/:id', controller.deletePersonnel);
+router.delete('/personnel/:id', controller.deletePersonnel);
+
+
 
 module.exports = router;

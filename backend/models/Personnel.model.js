@@ -1,30 +1,34 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
-
-const personnelSchema = new mongoose.Schema({
+const personnelSchema = new Schema({
+    companie: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Company'
+      }],
     id: {
         type: String,
-        required: true
+        // required: true
     },
     realname: {
         type: String,
-        required: true
+        //required: true
     },
     username: {
         type: String,
-        required: true
+        //required: true
     },
     position:{
         type: String,
-        required: true
+        //required: true
     },
     email: {
         type: String,
-        required: true
+        //required: true
     },
     domain: {
         type: String,
-        required: true
+       // required: true
     },
     related_hardware: {
         type: Number,
@@ -32,7 +36,7 @@ const personnelSchema = new mongoose.Schema({
     },
     privilege_level: {
         type: String,
-        required: true
+        // required: true
     },
     is_security_administrator: {
         // type: Boolean,
@@ -56,8 +60,6 @@ const personnelSchema = new mongoose.Schema({
     
 })
 
-const Personnel = mongoose.model('Personnel', personnelSchema, 'personnel')
-
+const Personnel = mongoose.model('Personnel', personnelSchema)
+// const Personnel = mongoose.model('Personnel', personnelSchema, 'personnel')
 module.exports = Personnel;
-
-

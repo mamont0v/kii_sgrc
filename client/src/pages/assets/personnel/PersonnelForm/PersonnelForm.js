@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addPersonnel, updatePersonnel } from '../../../../redux/personnel/personnel.action'
 import './PersonnelForm.styles.scss'
 
-export const PersonnelForm = ({currentId, setCurrentId}) => {
+export const PersonnelForm = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
 
-    
+    const fetсhData = useSelector(state => state.personnelList)
+    const { companies } = fetсhData
+
     const [inputs, handleInputs] = useState({
+        companie:'',
         id: '',
         realname: '',
         username: '',
@@ -21,21 +24,23 @@ export const PersonnelForm = ({currentId, setCurrentId}) => {
         addition_info: ''
     })
 
-    const person = useSelector(state=> currentId ? state.personnelList.find(p => p._id === currentId): null)
+    const person = useSelector(state => currentId ? state.personnelList.personnel.find(p => p._id === currentId) : null)
 
-    useEffect(()=> {
-        if (person) handleInputs(person) 
+    useEffect(() => {
+        if (person) handleInputs(person)
     }, [person])
 
     const handleSubmit = (event) => {
         event.preventDefault()
-            if (currentId) {
-                dispatch(updatePersonnel(currentId, inputs))
-                clear()
-            } else {
-                dispatch(addPersonnel(inputs))
-                clear()
-            }
+        if (currentId) {
+            console.log('currentId',currentId)
+            dispatch(updatePersonnel(currentId, inputs))
+            clear()
+        } else {
+            console.log('inputs',inputs)
+            dispatch(addPersonnel(inputs))
+            clear()
+        }
     }
 
 
@@ -43,6 +48,7 @@ export const PersonnelForm = ({currentId, setCurrentId}) => {
         setCurrentId(null)
         handleInputs(
             {
+                companie:'',
                 id: '',
                 realname: '',
                 username: '',
@@ -62,6 +68,16 @@ export const PersonnelForm = ({currentId, setCurrentId}) => {
         <div className="container">
             <h2>{currentId ? 'Изменить данные о  пользователе' : 'Создать нового пользователя'}</h2>
             <form onSubmit={handleSubmit}>
+                <div className='form-group'>
+                    <label htmlFor="companie">Организация:</label>
+                    <select value={inputs.companie} name="companie" onChange={(e) => handleInputs({ ...inputs, companie: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        {companies.map(company => {
+                            return <option key={company._id} value={company._id}>{company.title}</option>
+                        })}
+                    </select>
+                </div>
+
                 <div className='form-group'>
                     <label htmlFor="id">ID</label>
                     <input

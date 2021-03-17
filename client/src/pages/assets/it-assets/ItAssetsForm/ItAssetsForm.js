@@ -29,7 +29,7 @@ export const ItAssetsForm = ({ currentId, setCurrentId }) => {
     })
 
     const asset = useSelector(state=> currentId ? state.assetsList.find(p => p._id === currentId): null)
-   
+    
 
     useEffect(() => {
         if (asset) handleInputs(asset)

@@ -1,13 +1,35 @@
 const mongoose = require('mongoose')
-const Personnel = require('../models/Personnel.model');
+const db = require('../models/index')
 
+
+
+// exports.showPersonnel = async (req, res) => {
+//   try {
+//     const fetchPersons = await db.Personnel.find()
+//     res.json(fetchPersons)
+//   } catch (error) {
+//     res.status(409).json(error);
+//   }
+// }
 // @FETCH all Customers
 exports.getPersonnel = async (req, res) => {
   try {
-    const fetchPersson = Personnel.find()
-    res.status(200).json(fetchPersson)
+    const fetchPersson = await db.Personnel
+    .find()
+    .populate('companie')
+    .exec(function(err, persons) {
+      // console.log('person', person)
+      db.Company.find({
+        _id: {$nin: persons.companie}
+      }, function(err, company) {
+        console.log('company',company)
+        console.log('persons',persons)
+        res.json({persons,company});
+      });
+    });
+    //res.status(200).json(fetchPersson)
   } catch(error) {
-    res.status(404).json({message:error.message})
+    res.status(409).json(error);
   }
   
     // .then(data => res.json(data))
@@ -17,9 +39,9 @@ exports.getPersonnel = async (req, res) => {
 
 // @POST a Customer
 exports.createPersonnel = async (req, res) => {
-  const personnel = req.body
+  // const personnel = req.body
 
-  const newPersonnel = new Personnel(personnel)
+  const newPersonnel = new db.Personnel(req.body)
   // const personnel = new Personnel({
   //   id: req.body.id,
   //   realname: req.body.realname,
@@ -64,7 +86,7 @@ exports.updatePersonnel = async (req, res) => {
   
   if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id')
 
-  const updatePerson = await Personnel.findByIdAndUpdate(_id, {...person, _id}, {new: true})
+  const updatePerson = await db.Personnel.findByIdAndUpdate(_id, {...person, _id}, {new: true})
   
   res.json(updatePerson)
   // Personnel.findByIdAndUpdate(
@@ -99,7 +121,7 @@ exports.deletePersonnel = async (req, res) => {
 
   if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('Пользователя с таким Id найдено')
 
-  await Personnel.findByIdAndRemove(id)
+  await db.Personnel.findByIdAndRemove(id)
 
   res.json({message: 'Пользователь удален успешно!'})
   // Personnel.findOneAndDelete(req.params.id)

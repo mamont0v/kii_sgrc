@@ -1,30 +1,67 @@
+require('dotenv').config();
 const express = require('express') //web application framework for Node
 const cors = require('cors'); //Cross-Origin Resource Sharing middleware
-
+const morgan = require('morgan')
 const path = require('path');
-
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+//express-validator добавить
 
 // if (process.env.NODE_ENV !== 'production')
-require('dotenv').config();
-
 //sensetive information
 //const { MONGODB } = require('./config.js');
+
 const connectionDB = require('./config/mongodb.config');
 const colors = require('colors');
+
 // const {notFound, errorHandler} = require('./middlewares/errorHandling.js');
 const personnelRouter = require('./routers/Personnel.routes')
 const itAssetsRouter = require('./routers/ItAssets.routes')
+const companyRouter = require('./routers/Company.routes')
+
 
 const app = express();
+const PORT = process.env.PORT || 5001
+connectionDB();
 
-const PORT = process.env.PORT || 5000
+// view engine setup for EJS
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
+
+// Выполяет тоже самое
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'))
 app.use(cors())
+app.use(cookieParser())
 
-connectionDB();
+//Routes call under cors
+app.use('/api', personnelRouter)
+app.use('/api', itAssetsRouter)
+
+// app.get('/', function (req, res) {
+//     res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+//   });
+app.use('/api', companyRouter)
+
+
+
+
+
+
+//custom middleware
+
+// const middlewareTest = (req, res, next) => {
+//   console.log('request:')
+//   next()
+// }
+//app.use(middlewareTest)
+
+
 
 //Error Handling
 //Промежуточный обработчик для обработки ошибок должен быть определен последним, после указания всех app.use() и вызовов маршрутов
@@ -32,16 +69,6 @@ connectionDB();
 // app.use(errorHandler)
 
 
-
-//Routes call under cors
-app.use('/api/personnel', personnelRouter)
-app.use('/api/itAssets', itAssetsRouter)
-
-
-
-// app.get('/', function (req, res) {
-//     res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
-//   });
 
 
 
@@ -56,14 +83,15 @@ app.use('/api/itAssets', itAssetsRouter)
 // app.use(express.static(path.join(__dirname, '../client/build/index.html')));
 
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(function (req, res, next) {
-        res.setHeader(
-          'Content-Security-Policy-Report-Only',
-          "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
-        );
-        next()
-      });
+// if (process.env.NODE_ENV === 'production') {
+    
+  // app.use(function (req, res, next) {
+  //       res.setHeader(
+  //         'Content-Security-Policy-Report-Only',
+  //         "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+  //       );
+  //       next()
+  //     });
 
     app.use(express.static(path.join(__dirname, '../client/build')));
    
@@ -71,7 +99,7 @@ if (process.env.NODE_ENV === 'production') {
        
       res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
     })
-  }
+  // }
   
   
   app.listen(PORT, error => {
@@ -94,14 +122,26 @@ if (process.env.NODE_ENV === 'production') {
 // }
 
 
+//catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-// 404 Error
-// app.use((req, res, next) => {
-//     next(createError(404));
-// });
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-// app.use(function (err, req, res, next) {
+  // render the error page
+
+  // app.use(function (err, req, res, next) {
 //     console.error(err.message);
 //     if (!err.statusCode) err.statusCode = 500;
 //     res.status(err.statusCode).send(err.message);
 // });
+
+  res.status(err.status || 500);
+  res.render('error');
+});
+

@@ -58,8 +58,6 @@ const assetsSchema = new mongoose.Schema({
     }
 })
 
-const itAssets = mongoose.model('itAssets', assetsSchema, 'itAssets')
+const itAssets = mongoose.model('itAssets', assetsSchema)
 
 module.exports = itAssets;
-
-

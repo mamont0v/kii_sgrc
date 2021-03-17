@@ -8,6 +8,7 @@ export const Personnel = () => {
     const dispatch = useDispatch()
     
     const [currentId, setCurrentId] = useState(null)
+    
 
     useEffect(() => {
         dispatch(getPersonnel())

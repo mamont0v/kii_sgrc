@@ -11,19 +11,19 @@ const router = express.Router();
 
 //REST API 
 //@ GET
-router.get('/', controller.getAsset);
+router.get('/itAssets/', controller.getAsset);
 
 //@ GET by ID
 // router.get('/:id', controller.getTest);
 
 //was .put
 //@ EDIT by ID
-router.patch('/:id', controller.updateAsset);
+router.patch('/itAssets/:id', controller.updateAsset);
 
 //@ CREATE new ID
-router.post('/', controller.createAsset);
+router.post('/itAssets/', controller.createAsset);
 
 //@ DELETE
-router.delete('/:id', controller.deleteAsset);
+router.delete('/itAssets/:id', controller.deleteAsset);
 
 module.exports = router;
