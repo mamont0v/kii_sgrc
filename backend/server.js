@@ -18,7 +18,8 @@ const colors = require('colors');
 const personnelRouter = require('./routers/Personnel.routes')
 const itAssetsRouter = require('./routers/ItAssets.routes')
 const companyRouter = require('./routers/Company.routes')
-
+const activitiesRouter = require('./routers/Activities.routes')
+const equipmentsRouter = require('./routers/Equipments.routes')
 
 const app = express();
 const PORT = process.env.PORT || 5001
@@ -42,12 +43,12 @@ app.use(cookieParser())
 //Routes call under cors
 app.use('/api', personnelRouter)
 app.use('/api', itAssetsRouter)
-
+app.use('/api', companyRouter)
+app.use('/api', activitiesRouter)
+app.use('/api', equipmentsRouter)
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
 //   });
-app.use('/api', companyRouter)
-
 
 
 

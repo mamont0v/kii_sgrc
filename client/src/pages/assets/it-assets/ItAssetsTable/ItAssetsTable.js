@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { Loader } from '../../../../components/Loader/Loader'
 import { deleteAssets } from '../../../../redux/itAssets/itAssets.action'
 
 
 export const ItAssetsTable = ({ setCurrentId }) => {
     const fethedAssets = useSelector(state => state.assetsList)
-    
+    const {error, loading, assets} = fethedAssets
     const dispatch = useDispatch()
 
     // const deletePerson = (id) => {
@@ -18,11 +19,13 @@ export const ItAssetsTable = ({ setCurrentId }) => {
     // }
 
     return (
-        <div style={{ overflow: "scroll" }}>
-            {!fethedAssets.length ? (
-            <p>Информации о пользователях нет.</p>
+            loading ? <Loader/> : error ? (
+            <h2>{error}</h2>
+        ) : !assets.length > 0 ? (
+            <h3 style={{ color: "#b3b3b3" }}>Успешно.Информации нет. Требуется добавить.</h3>
         ) : (
-            <table style={{ overflow: "visible" }} className="table">
+            <div style ={{overflow:'scroll'}}>
+            <table style={{ width: "100%" }} className="table">
                 <thead>
                     <tr>
                         <th>Идентификатор</th>
@@ -48,7 +51,7 @@ export const ItAssetsTable = ({ setCurrentId }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fethedAssets.map((asset) => {
+                    {assets.map((asset) => {
                         return (
                             <tr key={asset._id}>
                                 <td>{asset.id}</td>
@@ -78,7 +81,7 @@ export const ItAssetsTable = ({ setCurrentId }) => {
                     })}
                 </tbody>
             </table>
-        )}
-        </div>
+            </div>
+        )
     )
 }

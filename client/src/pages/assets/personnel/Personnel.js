@@ -16,6 +16,7 @@ export const Personnel = () => {
     
     return (
         <>
+        <h1>Персонал</h1>
         <PersonnelTable setCurrentId={setCurrentId}/>
         <PersonnelForm currentId={currentId} setCurrentId={setCurrentId}/>
         </>

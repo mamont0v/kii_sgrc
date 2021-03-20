@@ -3,30 +3,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addEntity, updateEntity } from '../../../../redux/entity/entity.action'
 import './EntityForm.styles.scss'
 
-export const EntityForm = ({currentId, setCurrentId}) => {
+export const EntityForm = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
-
-
     const [inputs, handleInputs] = useState({
         title: '',
+        // field_activity: '',
     })
 
+    const entity = useSelector(state => currentId ? state.entityList.find(p => p._id === currentId) : null)
 
-    const entity = useSelector(state=> currentId ? state.entityList.find(p => p._id === currentId): null)
-
-    useEffect(()=> {
-        if (entity) handleInputs(entity) 
+    useEffect(() => {
+        if (entity) handleInputs(entity)
     }, [entity])
 
     const handleSubmit = (event) => {
         event.preventDefault()
-            if (currentId) {
-                dispatch(updateEntity(currentId, inputs))
-                clear()
-            } else {
-                dispatch(addEntity(inputs))
-                clear()
-            }
+        if (currentId) {
+            dispatch(updateEntity(currentId, inputs))
+            clear()
+        } else {
+            dispatch(addEntity(inputs))
+            clear()
+        }
     }
 
 
@@ -54,12 +52,18 @@ export const EntityForm = ({currentId, setCurrentId}) => {
                         placeholder="Название организации"
                         onChange={(e) => handleInputs({ ...inputs, title: e.target.value })} />
                 </div>
-                
+
                 <div className='form-group'>
                     <button type="submit">
                         Создать организацию
                         </button>
                 </div>
+                <p>Сфера деятельности:</p>
+                <p>Наименование объекта:</p>
+                <p>Планируемый срок категорирования</p>
+                <p>Контакты организации</p>
+                <i>Генеральный директор - {`user.fullname`}.
+                    Телефон - {`user.telephone`}. Исполнительное лицо: {`user.fullname`} {`user.telephone`}</i>
             </form>
         </div>
     )

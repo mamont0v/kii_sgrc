@@ -1,7 +1,7 @@
 .vertical-menu {
     width: 240px;
     z-index: 1001;
-    background: #fff;
+    background: #272c3e;
     bottom: 0;
     margin-top: 0;
     position: fixed;
@@ -64,6 +64,15 @@
         -ms-transition: all 0.5s;
         -o-transition: all 0.5s;
         transition: all 0.5s;
+    }
+
+    ul li a {
+            color: #333547;
+            text-decoration: none;
+            font-size: 16px;
+            &:hover{
+                color: #007bbb;
+            }
     }
 
     #menu_bar01:checked~#links01 li,

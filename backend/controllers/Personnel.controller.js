@@ -22,8 +22,8 @@ exports.getPersonnel = async (req, res) => {
       db.Company.find({
         _id: {$nin: persons.companie}
       }, function(err, company) {
-        console.log('company',company)
-        console.log('persons',persons)
+        // console.log('company',company)
+        // console.log('persons',persons)
         res.json({persons,company});
       });
     });

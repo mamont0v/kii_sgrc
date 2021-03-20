@@ -21,10 +21,12 @@ export const VerticalMenu = () => {
                         <input type="checkbox" id="menu_bar02" className="accordion" />
                         <ul id="links02">
                             <li><Link to="/assets/personnel">Персонал</Link></li>
-                           
+                            
+                            <li><Link to="/assets/equipments">Оборудование</Link></li>
+
                             <li><Link to="/assets/it-assets">ИТ-активы</Link></li>
-                           
-                           
+
+                            <li><Link to="/assets/activities">Процессы осуществления видов деятельности</Link></li>
                         </ul>
                         <label htmlFor="menu_bar03">Отчеты</label>
                         <input type="checkbox" id="menu_bar03" className="accordion" />

@@ -1,0 +1,23 @@
+const express = require('express');
+const controller = require('../controllers/Activities.controller')
+
+const router = new express.Router();
+
+
+/*****************
+** REST API ******
+******************/
+
+
+//@ GET ALL companies
+router.get('/activities/', controller.getActivities);
+//@ CREATE new companie
+router.post('/activities/', controller.createActivities);
+//@ DELETE by id companie
+router.delete('/activities/:id', controller.deleteActivities);
+//@ UPDATE by id companie
+router.patch('/activities/:id', controller.updateActivities);
+
+// router.post('/personnel/', controller.addToPersonnel);
+
+module.exports = router
