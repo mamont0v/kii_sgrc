@@ -5,20 +5,11 @@ import { personnelTableDelete } from '../../../../redux/personnel/personnel.acti
 import { Loader } from '../../../../components/Loader/Loader'
 
 
-
-
 export const PersonnelTable = ({ setCurrentId }) => {
     const fethedPersonnel = useSelector(state => state.personnelList)
     const { loading, error, personnel, companies } = fethedPersonnel
     const dispatch = useDispatch()
 
-    // console.log('personnel.persons',personnel.persons)
-
-    // if (personnel.persons) {
-    //     console.log('IF personnel.persons', personnel.persons)
-    // } else {
-    //     console.log('ELSE personnel.persons', personnel.persons)
-    // }
 
     return (
         loading ? <h1><Loader /></h1> : error ? (
@@ -41,7 +32,8 @@ export const PersonnelTable = ({ setCurrentId }) => {
                             <th>Уровень привилегии</th>
                             <th>Администратор безопасности</th>
                             <th>Количество инцидентов</th>
-                            <th>Actions</th>
+                            <th>Изменить</th>
+                            <th>Удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,9 +53,9 @@ export const PersonnelTable = ({ setCurrentId }) => {
                                     <td>{person.privilege_level}</td>
                                     <td>{person.is_security_administrator}</td>
                                     <td>{person.number_of_incidents}</td>
-                                    <td><button type="button" onClick={() => setCurrentId(person._id)}>Edit</button></td>
+                                    <td><button type="button" onClick={() => setCurrentId(person._id)}>Изменить</button></td>
                                     <td><button type="button" onClick={() => dispatch(personnelTableDelete(person._id))}>
-                                        DELETE
+                                        Удалить
                         </button></td>
                                 </tr>
                             )

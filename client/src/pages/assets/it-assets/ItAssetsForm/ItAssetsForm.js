@@ -280,14 +280,9 @@ export const ItAssetsForm = ({ currentId, setCurrentId }) => {
                 </div>
             
                 <div className='form-group'>
-                    <label htmlFor="category_critical">Критичность на основе показателей:</label>
-                    <select value={inputs.category_critical}  name="category_critical" onChange={(e) => handleInputs({ ...inputs, category_critical: e.target.value })}>
-                    <option hidden defaultValue>Выберите</option>
-                        <option>Критическая</option>
-                        <option>Высокая</option>
-                        <option>Средняя</option>
-                        <option>Низкая</option>
-                    </select>
+                    <label htmlFor="category_critical">Значение показателя: (нажмите, "рассчитать" для определение категории ЗОКИИ)</label>
+                    <input value={inputs.category_critical}  name="category_critical" onChange={(e) => handleInputs({ ...inputs, category_critical: e.target.value })}>
+                    </input>
                 </div>
 
                 <div className='form-group'>

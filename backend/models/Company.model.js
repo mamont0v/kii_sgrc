@@ -6,6 +6,9 @@ const companySchema = new Schema({
     title: {
         type: String,
         maxlenght: 150
+    },
+    field_activity: {
+        type: String
     }
 }, {
     timestamps: true

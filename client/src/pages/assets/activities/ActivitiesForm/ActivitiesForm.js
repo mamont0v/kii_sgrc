@@ -5,16 +5,24 @@ import { addActivities, updateActivities } from '../../../../redux/activities/ac
 
 export const ActivitiesForm = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
+
     const [inputs, handleInputs] = useState({
         id: '',
         category: '',
+        sub_category: '',
         title: '',
-        critical_status: '',
         owner_proccess: '', //[] должен быть
         security_administrator: '',
         security_auditor: '',
         control_manager_compliance: '',
-        description: ''
+        description: '',
+        social_mark: '',
+        politic_mark: '',
+        economic_mark: '',
+        eco_mark: '',
+        military_mark: '',
+        justification: '',
+        critical_status: ''
     })
     const person = useSelector(state => currentId ? state.activityList.activities.find(p => p._id === currentId) : null)
 
@@ -25,11 +33,9 @@ export const ActivitiesForm = ({ currentId, setCurrentId }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (currentId) {
-            console.log('currentId', currentId)
             dispatch(updateActivities(currentId, inputs))
             clear()
         } else {
-            console.log('inputs', inputs)
             dispatch(addActivities(inputs))
             clear()
         }
@@ -42,6 +48,7 @@ export const ActivitiesForm = ({ currentId, setCurrentId }) => {
             {
                 id: '',
                 category: '',
+                sub_category: '',
                 title: '',
                 critical_status: '',
                 owner_proccess: '', //[] должен быть
@@ -70,8 +77,20 @@ export const ActivitiesForm = ({ currentId, setCurrentId }) => {
                 </div>
 
                 <div className='form-group'>
-                    <label htmlFor="category">Категория бизнес-процессов:</label>
+                    <label htmlFor="category">Категория бизнес-процесса:</label>
                     <select value={inputs.category} name="category" onChange={(e) => handleInputs({ ...inputs, category: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>Управленческий</option>
+                        <option>Технологический</option>
+                        <option>Производственный</option>
+                        <option>Финансово-экономический</option>
+                        <option>Иной</option>
+                    </select>
+                </div>
+
+                <div className='form-group'>
+                    <label htmlFor="sub_category">Подкатегория бизнес-процесса:</label>
+                    <select value={inputs.sub_category} name="sub_category" onChange={(e) => handleInputs({ ...inputs, sub_category: e.target.value })}>
                         <option hidden defaultValue>Выберите</option>
                         <option>Административно-хозяйственное обеспечение</option>
                         <option>Администрирование и ИТ</option>
@@ -95,8 +114,11 @@ export const ActivitiesForm = ({ currentId, setCurrentId }) => {
                         <option>Стратегическое управление</option>
                         <option>Управление кадрами</option>
                         <option>Финансовое управление</option>
+                        <option>Иное</option>
                     </select>
                 </div>
+
+
 
                 <div className='form-group'>
                     <label htmlFor="title">Наименование процесса:</label>
@@ -110,16 +132,7 @@ export const ActivitiesForm = ({ currentId, setCurrentId }) => {
                         onChange={(e) => handleInputs({ ...inputs, title: e.target.value })} />
                 </div>
 
-                <div className='form-group'>
-                    <label htmlFor="critical_status">Критичность:</label>
-                    <select value={inputs.title} name="critical_status" onChange={(e) => handleInputs({ ...inputs, critical_status: e.target.value })}>
-                        <option hidden defaultValue>Выберите</option>
-                        <option>Критическая</option>
-                        <option>Высокая</option>
-                        <option>Средняя</option>
-                        <option>Низкая</option>
-                    </select>
-                </div>
+
 
                 <div className='form-group'>
                     <label htmlFor="owner_proccess">Владелец процесса:</label>
@@ -173,16 +186,87 @@ export const ActivitiesForm = ({ currentId, setCurrentId }) => {
 
                 <div className='form-group'>
                     <label htmlFor="description">Описание процесса (доп. информация):</label>
-                    <input
-                        name='description'
+                    <textarea 
+                     name='description'
                         value={inputs.description}
                         type='text'
                         id='description'
                         autoComplete="off"
                         placeholder=""
-                        onChange={(e) => handleInputs({ ...inputs, description: e.target.value })} />
+                        onChange={(e) => handleInputs({ ...inputs, description: e.target.value })}
+                />
                 </div>
-                <textarea></textarea>
+                
+
+      
+                <div className='form-group'>
+                    <label htmlFor="social_mark">Социальная значимость:</label>
+                    <select value={inputs.social_mark} name="social_mark" onChange={(e) => handleInputs({ ...inputs, social_mark: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>ДА</option>
+                        <option>НЕТ</option>
+                    </select>
+                </div>
+              
+                <div className='form-group'>
+                    <label htmlFor="politic_mark">Политическая значимость:</label>
+                    <select value={inputs.politic_mark} name="politic_mark" onChange={(e) => handleInputs({ ...inputs, politic_mark: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>ДА</option>
+                        <option>НЕТ</option>
+                    </select>
+                </div>
+
+                <div className='form-group'>
+                    <label htmlFor="economic_mark">Экономическая значимость:</label>
+                    <select value={inputs.economic_mark} name="economic_mark" onChange={(e) => handleInputs({ ...inputs, economic_mark: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>ДА</option>
+                        <option>НЕТ</option>
+                    </select>
+                </div>
+
+                <div className='form-group'>
+                    <label htmlFor="eco_mark">Экологическая значимость:</label>
+                    <select value={inputs.eco_mark} name="eco_mark" onChange={(e) => handleInputs({ ...inputs, eco_mark: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>ДА</option>
+                        <option>НЕТ</option>
+                    </select>
+                </div>
+
+                <div className='form-group'>
+                    <label htmlFor="military_mark">Оборонная значимость:</label>
+                    <select value={inputs.military_mark} name="military_mark" onChange={(e) => handleInputs({ ...inputs, military_mark: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>ДА</option>
+                        <option>НЕТ</option>
+                    </select>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="justification">Обоснование критичности:</label>
+                    <textarea
+                        name='justification'
+                        value={inputs.justification}
+                        type='text'
+                        id='justification'
+                        autoComplete="off"
+                        placeholder=""
+                        onChange={(e) => handleInputs({ ...inputs, justification: e.target.value })} />
+                </div>
+               
+                
+                <div className='form-group'>
+                    <label htmlFor="critical_status">Критичность:</label>
+                    <select value={inputs.title} name="critical_status" onChange={(e) => handleInputs({ ...inputs, critical_status: e.target.value })}>
+                        <option hidden defaultValue>Выберите</option>
+                        <option>Критический</option>
+                        <option>Высокий</option>
+                        <option>Средний</option>
+                        <option>Низкий</option>
+                        <option>Некритический</option>
+                    </select>
+                </div>
 
                 {/* Добавить ссылку на контакты к людям */}
 

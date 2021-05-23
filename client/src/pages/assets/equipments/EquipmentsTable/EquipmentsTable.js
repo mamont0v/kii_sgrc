@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Loader } from '../../../../components/Loader/Loader'
 import { deleteEquipments } from '../../../../redux/equipments/equipments.action'
 
@@ -20,7 +19,7 @@ export const EquipmentsTable = ({ setCurrentId }) => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Оборудование для сканирования:</th>
+                        <th>ID оборудования:</th>
                         <th>Имя устройства:</th>
                         <th>Критичность:</th>
                         <th>Домен\Рабочая группа:</th>

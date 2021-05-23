@@ -15,24 +15,24 @@ export const VerticalMenu = () => {
                         <label htmlFor="menu_bar01">Общие сведения</label>
                         <input type="checkbox" id="menu_bar01" className="accordion" />
                         <ul id="links01">
-                            <li><Link to="/overview/entity">Организации</Link></li>
+                            <li><Link to="/overview/entity">Организация и подразделения</Link></li>
                         </ul>
                         <label htmlFor="menu_bar02">Активы</label>
                         <input type="checkbox" id="menu_bar02" className="accordion" />
                         <ul id="links02">
                             <li><Link to="/assets/personnel">Персонал</Link></li>
-                            
+
                             <li><Link to="/assets/equipments">Оборудование</Link></li>
 
                             <li><Link to="/assets/it-assets">ИТ-активы</Link></li>
 
-                            <li><Link to="/assets/activities">Процессы осуществления видов деятельности</Link></li>
+                            <li><Link to="/assets/activities">Бизнес-процессы</Link></li>
                         </ul>
                         <label htmlFor="menu_bar03">Отчеты</label>
                         <input type="checkbox" id="menu_bar03" className="accordion" />
                         <ul id="links03">
                             <li><Link to="/workflow/process-grading">Рабочие процессы</Link></li>
-                            
+                            <li><Link to="/workflow/categorization-commission">Приказ о создании комиссии</Link></li>
                         </ul>
                     </div>
                 </div>

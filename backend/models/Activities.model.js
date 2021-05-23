@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 
+
+
 const activitiesSchema = new Schema({
     id: {
         type: String,
@@ -9,12 +11,13 @@ const activitiesSchema = new Schema({
     category: {
         type: String,
     },
+    sub_category: {
+        type: String
+    },
     title: {
         type: String,
     },
-    critical_status: {
-        type: String,
-    },
+
     owner_proccess: {
         type: String,
     }, //[] должен быть
@@ -28,6 +31,27 @@ const activitiesSchema = new Schema({
         type: String,
     },
     description: {
+        type: String,
+    },
+    social_mark: {
+        type: String,
+    },
+    politic_mark: {
+        type: String,
+    },
+    economic_mark: {
+        type: String,
+    },
+    eco_mark: {
+        type: String,
+    },
+    military_mark: {
+        type: String,
+    },
+    justification: {
+        type: String,
+    },
+    critical_status: {
         type: String,
     }
 }, {

@@ -5,12 +5,10 @@ import './PersonnelForm.styles.scss'
 
 export const PersonnelForm = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
-
     const fetсhData = useSelector(state => state.personnelList)
     const { companies } = fetсhData
-
     const [inputs, handleInputs] = useState({
-        companie:'',
+        companie: '',
         id: '',
         realname: '',
         username: '',
@@ -23,21 +21,20 @@ export const PersonnelForm = ({ currentId, setCurrentId }) => {
         number_of_incidents: '',
         addition_info: ''
     })
-
     const person = useSelector(state => currentId ? state.personnelList.personnel.find(p => p._id === currentId) : null)
+
 
     useEffect(() => {
         if (person) handleInputs(person)
     }, [person])
 
+
     const handleSubmit = (event) => {
         event.preventDefault()
         if (currentId) {
-            console.log('currentId',currentId)
             dispatch(updatePersonnel(currentId, inputs))
             clear()
         } else {
-            console.log('inputs',inputs)
             dispatch(addPersonnel(inputs))
             clear()
         }
@@ -48,7 +45,7 @@ export const PersonnelForm = ({ currentId, setCurrentId }) => {
         setCurrentId(null)
         handleInputs(
             {
-                companie:'',
+                companie: '',
                 id: '',
                 realname: '',
                 username: '',
@@ -64,6 +61,7 @@ export const PersonnelForm = ({ currentId, setCurrentId }) => {
         )
     }
 
+    
     return (
         <div className="container">
             <h2>{currentId ? 'Изменить данные о  пользователе' : 'Создать нового пользователя'}</h2>
@@ -182,7 +180,7 @@ export const PersonnelForm = ({ currentId, setCurrentId }) => {
                 </div>
                 <div className='form-group'>
                     <button type="submit">
-                        Create User
+                        Создать пользователя
                         </button>
                 </div>
             </form>

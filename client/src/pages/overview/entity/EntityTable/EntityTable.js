@@ -1,13 +1,12 @@
 import { useSelector } from 'react-redux'
 import './EntityTable.styles.scss'
-import {useDispatch} from 'react-redux'
-import {deleteEntity } from '../../../../redux/entity/entity.action'
+import { useDispatch } from 'react-redux'
+import { deleteEntity } from '../../../../redux/entity/entity.action'
 
 
-export const EntityTable = ({setCurrentId}) => {
+export const EntityTable = ({ setCurrentId }) => {
     const entityFetched = useSelector(state => state.entityList)
     const dispatch = useDispatch()
-
 
     return (
         !entityFetched.length > 0 ? (
@@ -17,6 +16,7 @@ export const EntityTable = ({setCurrentId}) => {
                 <thead>
                     <tr>
                         <th>Название</th>
+                        <th>Сфера деятельности</th>
                         <th>Изменить</th>
                         <th>Удалить</th>
                     </tr>
@@ -26,11 +26,14 @@ export const EntityTable = ({setCurrentId}) => {
                         return (
                             <tr key={user._id}>
                                 <td>{user.title}</td>
-                                
-                                <td><button type="button" onClick={()=>setCurrentId(user._id)}>Изменить</button></td>
-                                <td><button type="button" onClick={()=>dispatch(deleteEntity(user._id))}>
-                                    Удалить
-                        </button></td>
+                                <td>{user.field_activity
+                                }</td>
+                                <td><button type="button" onClick={() => setCurrentId(user._id)}>Изменить</button></td>
+                                <td>
+                                    <button type="button" onClick={() => dispatch(deleteEntity(user._id))}>
+                                        Удалить
+                                    </button>
+                                </td>
                             </tr>
                         )
                     })}

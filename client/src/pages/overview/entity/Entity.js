@@ -15,6 +15,7 @@ export const Entity = () => {
     
     return (
         <>
+        <h1>Организация</h1>
         <EntityTable setCurrentId={setCurrentId}/>
         <EntityForm currentId={currentId} setCurrentId={setCurrentId}/>
         </>

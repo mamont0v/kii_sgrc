@@ -68,13 +68,16 @@ export const EquipmentsForm = ({ currentId, setCurrentId }) => {
 
     return (
         <div className="container">
-            <h2>{currentId ? 'Изменить данные о  бизнес-процессе' : 'Создать новый бизнес-процесс'}</h2>
+            <h2>{currentId ? 'Изменить данные об  оборудовании' : 'Создать новое оборудование'}</h2>
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>
-                    <label htmlFor="id_for_scan">Оборудование для сканирования:</label>
-                    <select value={inputs.id_for_scan} name="id_for_scan" onChange={(e) => handleInputs({ ...inputs, id_for_scan: e.target.value })}>
-                        <option hidden defaultValue>Выберите</option>
-                    </select>
+                    <label htmlFor="id_for_scan">
+                    {/* Оборудование для сканирования: */}
+                    Идентификатор оборудования:
+                    </label>
+                    <input value={inputs.id_for_scan} name="id_for_scan" onChange={(e) => handleInputs({ ...inputs, id_for_scan: e.target.value })}>
+                        {/* <option hidden defaultValue>Выберите</option> */}
+                    </input>
                 </div>
 
                 <div className='form-group'>
@@ -122,7 +125,7 @@ export const EquipmentsForm = ({ currentId, setCurrentId }) => {
                 </div>
 
                 <div className='form-group'>
-                    <label htmlFor="virtual_machine">Виртуальная мащина:</label>
+                    <label htmlFor="virtual_machine">Виртуальная машина:</label>
                     <select value={inputs.virtual_machine} name="virtual_machine" onChange={(e) => handleInputs({ ...inputs, virtual_machine: e.target.value })}>
                         <option hidden defaultValue>Выберите</option>
                         <option>Да</option>

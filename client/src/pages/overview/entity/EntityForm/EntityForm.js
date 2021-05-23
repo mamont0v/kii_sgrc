@@ -7,7 +7,7 @@ export const EntityForm = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch()
     const [inputs, handleInputs] = useState({
         title: '',
-        // field_activity: '',
+        field_activity: ''
     })
 
     const entity = useSelector(state => currentId ? state.entityList.find(p => p._id === currentId) : null)
@@ -32,7 +32,8 @@ export const EntityForm = ({ currentId, setCurrentId }) => {
         setCurrentId(null)
         handleInputs(
             {
-                title: ''
+                title: '',
+                field_activity: ''
             }
         )
     }
@@ -54,16 +55,46 @@ export const EntityForm = ({ currentId, setCurrentId }) => {
                 </div>
 
                 <div className='form-group'>
+                    <label htmlFor="field_activity">Сфера деятельности</label>
+                    <input
+                        name='field_activity'
+                        value={inputs.field_activity}
+                        type='text'
+                        id='field_activity'
+                        autoComplete="off"
+                        placeholder="Сфера действия"
+                        onChange={(e) => handleInputs({ ...inputs, field_activity: e.target.value })} />
+                    <p>Например:</p>
+                    <ul>
+                        <li>система здравоохранения</li>
+                        <li>наука</li>
+                        <li>транспорт</li>
+                        <li>связь</li>
+                        <li>энергетика</li>
+                        <li>банковская сфера (иная сфера
+                        финансового рынка)</li>
+                        <li>топливно-энергетический комплекс</li>
+                        <li>атомная энергетика</li>
+                        <li>оборонная сфера</li>
+                        <li>ракетно-космическая сфера</li>
+                        <li>горно-добывающая сфера</li>
+                        <li>металлургическая промышленность</li>
+                        <li>химическая промышленность</li>
+                        <li>иное</li>
+                    </ul>
+                </div>
+
+                <div className='form-group'>
                     <button type="submit">
                         Создать организацию
                         </button>
                 </div>
-                <p>Сфера деятельности:</p>
+                {/* <p>Сфера деятельности:</p>
                 <p>Наименование объекта:</p>
                 <p>Планируемый срок категорирования</p>
                 <p>Контакты организации</p>
                 <i>Генеральный директор - {`user.fullname`}.
-                    Телефон - {`user.telephone`}. Исполнительное лицо: {`user.fullname`} {`user.telephone`}</i>
+                    Телефон - {`user.telephone`}. Исполнительное лицо: {`user.fullname`} {`user.telephone`}</i> */}
             </form>
         </div>
     )

@@ -6,6 +6,7 @@ const path = require('path');
 const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 //express-validator добавить
+const pdf = require('html-pdf')
 
 // if (process.env.NODE_ENV !== 'production')
 //sensetive information
@@ -20,6 +21,9 @@ const itAssetsRouter = require('./routers/ItAssets.routes')
 const companyRouter = require('./routers/Company.routes')
 const activitiesRouter = require('./routers/Activities.routes')
 const equipmentsRouter = require('./routers/Equipments.routes')
+const documentsRouter = require('./routers/Documents.routes')
+
+const pdfTemplate = require('./documents/commission-order')
 
 const app = express();
 const PORT = process.env.PORT || 5001
@@ -40,12 +44,30 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use(cookieParser())
 
+
+app.post('/workflow/categorization-commission', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('commissionOrder.pdf', (err) => {
+      if(err) {
+          res.send(Promise.reject());
+      }
+
+      res.send(Promise.resolve());
+  });
+});
+
+app.get('/workflow/categorization-commission', (req, res) => {
+  res.sendFile(`${__dirname}/commissionOrder.pdf`)
+})
+
+
 //Routes call under cors
 app.use('/api', personnelRouter)
 app.use('/api', itAssetsRouter)
 app.use('/api', companyRouter)
 app.use('/api', activitiesRouter)
 app.use('/api', equipmentsRouter)
+// app.use('/', documentsRouter)
+
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
 //   });
@@ -85,33 +107,33 @@ app.use('/api', equipmentsRouter)
 
 
 // if (process.env.NODE_ENV === 'production') {
-    
-  // app.use(function (req, res, next) {
-  //       res.setHeader(
-  //         'Content-Security-Policy-Report-Only',
-  //         "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
-  //       );
-  //       next()
-  //     });
 
-    app.use(express.static(path.join(__dirname, '../client/build')));
-   
-    app.get('*', (req, res) => {
-       
-      res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
-    })
-  // }
-  
-  
-  app.listen(PORT, error => {
-    if (error) throw error;
-    console.log(`Server running im ${process.env.NODE_ENV} on ${PORT} port`.yellow.bold);
-  });
+// app.use(function (req, res, next) {
+//       res.setHeader(
+//         'Content-Security-Policy-Report-Only',
+//         "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+//       );
+//       next()
+//     });
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('*', (req, res) => {
+
+  res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+})
+// }
+
+
+app.listen(PORT, error => {
+  if (error) throw error;
+  console.log(`Server running im ${process.env.NODE_ENV} on ${PORT} port`.yellow.bold);
+});
 
 //For development mode
 // if (process.env.NODE_ENV === 'production') {
 //     app.get('*', function (req, res) {
-      
+
 //         res.sendFile(path.resolve('../client', 'build', 'index.html')); //or path.join
 //     });
 // } else {
@@ -124,12 +146,12 @@ app.use('/api', equipmentsRouter)
 
 
 //catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -137,12 +159,15 @@ app.use(function(err, req, res, next) {
   // render the error page
 
   // app.use(function (err, req, res, next) {
-//     console.error(err.message);
-//     if (!err.statusCode) err.statusCode = 500;
-//     res.status(err.statusCode).send(err.message);
-// });
+  //     console.error(err.message);
+  //     if (!err.statusCode) err.statusCode = 500;
+  //     res.status(err.statusCode).send(err.message);
+  // });
 
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 

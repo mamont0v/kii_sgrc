@@ -8,27 +8,31 @@ import { ItAssets } from '../../../pages/assets/it-assets/ItAssets'
 import { Entity } from '../../../pages/overview/entity/Entity'
 import UpdatableEdge from '../../../pages/workflow/process-grading/ProcessGrading'
 import { Activities } from '../../../pages/assets/activities/Activities'
+import { CategorizationCommission } from '../../../pages/workflow/categorization-commission/СategorizationСommission'
+
 
 export const MainContent = () => {
     return (
-        <div className="main-content">
-            <div className="page-content">
-               
-                <div className="container-fluid">
+        <div className="view-wrapper">
+            <div className="page-content-wrapper">
+                <main className="page-content">
                     <Switch>
                         <Route exact path='/' render={() => <Home />} />
+                        {/* assets */}
                         <Route exact path='/assets/personnel' component={() => <Personnel />} />
                         <Route exact path='/assets/equipments' component={() => <Equipments />} />
                         <Route exact path='/assets/it-assets' component={() => <ItAssets />} />
                         <Route exact path='/overview/entity' component={() => <Entity />} />
-                        <Route exact path='/workflow/process-grading' component={() => <UpdatableEdge />} />
                         <Route exact path='/assets/activities' component={() => <Activities />} />
                         <Route exact path='/assets/equipments' component={() => <Equipments />} />
+
+                        {/* workflow */}
+                        <Route exact path='/workflow/process-grading' component={() => <UpdatableEdge />} />
+                        <Route exact path='/workflow/categorization-commission' component={() => <CategorizationCommission />} />
                     </Switch>
-                </div>
+                </main>
+                <Footer />
             </div>
-          
-            <Footer />
         </div>
     )
 }
