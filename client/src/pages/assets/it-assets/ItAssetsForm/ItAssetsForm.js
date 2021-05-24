@@ -299,7 +299,7 @@ export const ItAssetsForm = ({ currentId, setCurrentId }) => {
 
                 <div className='form-group'>
                     <button type="submit">
-                        Create User
+                        Создать
                         </button>
                 </div>
             </form>

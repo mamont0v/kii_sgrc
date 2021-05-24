@@ -3,6 +3,7 @@ import {EntityForm} from './EntityForm/EntityForm'
 import { useDispatch } from 'react-redux'
 import {useEffect, useState} from 'react'
 import { getEntity} from '../../../redux/entity/entity.action'
+import { ContentLayout } from '../../../components/UI/ContentLayout/ContentLayout'
 
 export const Entity = () => {
     const dispatch = useDispatch()
@@ -14,10 +15,10 @@ export const Entity = () => {
     }, [currentId, dispatch])
     
     return (
-        <>
+        <ContentLayout>
         <h1>Организация</h1>
         <EntityTable setCurrentId={setCurrentId}/>
         <EntityForm currentId={currentId} setCurrentId={setCurrentId}/>
-        </>
+        </ContentLayout>
     )
 }

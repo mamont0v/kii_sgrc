@@ -12,7 +12,7 @@
 
     .page-content-wrapper {
         width: 100%;
-        max-width: 1200px;
+        // max-width: 1200px;
         margin: 0 auto;
 
         .page-content {
@@ -30,4 +30,9 @@
             // }
         }
     }
+}
+
+.is-pushed-full {
+    margin-left: 320px;
+    width: calc(100% - 320px);
 }

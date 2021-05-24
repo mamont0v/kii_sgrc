@@ -1,6 +1,5 @@
 import {useState} from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Loader } from '../../../../components/Loader/Loader'
 import { Modal } from '../../../../components/Modal/Modal'
 import { deleteAssets } from '../../../../redux/itAssets/itAssets.action'

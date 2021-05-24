@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactFlow, { Controls, updateEdge, addEdge, Background } from 'react-flow-renderer';
+import { ContentLayout } from '../../../components/UI/ContentLayout/ContentLayout';
 
 const initialElements = [
   {
@@ -51,29 +52,29 @@ const UpdatableEdge = () => {
   // const onConnect = (params) => setElements((els) => addEdge(params, els));
 
   return (
-    <>
+    <ContentLayout>
       <h1 style={{ marginBottom: "10px", marginTop: "10px" }}>Исходные данные для категорирования</h1>
 
 
       <h1 style={{ marginBottom: "10px", marginTop: "10px" }}>Правила категорирования объектов КИИ РФ</h1>
       <p style={{ marginBottom: "10px", marginTop: "10px" }}>Процедуры категорирования детально прописаны в Постановлении Правительства РФ от 08.02.2018 № 127 «Об утверждении Правил категорирования объектов критической информационной инфраструктуры Российской Федерации, а также перечня показателей критериев значимости объектов критической информационной инфраструктуры Российской Федерации и их значений»</p>
-    <div style={{ marginBottom: "10px", marginTop: "10px", border:"1px solid black" }}>
-      <ReactFlow
-        elements={elements}
+      <div style={{ marginBottom: "10px", marginTop: "10px", border: "1px solid black" }}>
+        <ReactFlow
+          elements={elements}
 
-        style={{ width: "100%", height: "500px"}}
-        defaultZoom={1.5} minZoom={1} maxZoom={3}
-      >
-        <Background
-          variant="dots"
-          gap={12}
-          size={1}
-        />
-        <Controls onInteractiveChange />
-      </ReactFlow>
-</div>
+          style={{ width: "100%", height: "500px" }}
+          defaultZoom={1.5} minZoom={1} maxZoom={3}
+        >
+          <Background
+            variant="dots"
+            gap={12}
+            size={1}
+          />
+          <Controls onInteractiveChange />
+        </ReactFlow>
+      </div>
       <h1 style={{ marginTop: "20px" }}>Новый абзац</h1>
-    </>
+    </ContentLayout>
   );
 };
 

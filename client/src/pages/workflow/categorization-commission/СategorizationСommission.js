@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { saveAs } from 'file-saver';
+import { ContentLayout } from '../../../components/UI/ContentLayout/ContentLayout';
 
 export const CategorizationCommission = () => {
     const state = {}
@@ -14,9 +15,11 @@ export const CategorizationCommission = () => {
     }
 
     return (
-        <div>
-            <h1>Создать приказ комиссии</h1>
-            <button onClick={createAndDownloadPDF}>Создать приказ комиссии</button>
-        </div>
+        <ContentLayout>
+            <div>
+                <h1>Создать приказ комиссии</h1>
+                <button onClick={createAndDownloadPDF}>Создать приказ комиссии</button>
+            </div>
+        </ContentLayout>
     )
 }

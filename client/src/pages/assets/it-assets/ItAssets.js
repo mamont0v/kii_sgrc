@@ -6,6 +6,7 @@ import { ItAssetsForm } from './ItAssetsForm/ItAssetsForm'
 // import {ItAssetsCalculate} from './ItAssetsCalculate/ItAssetsCalculate'
 // import { ItAssetsEvaluation } from './ItAssetsEvaluation/ItAssetsEvaluation'
 import './ItAssets.styles.scss'
+import { ContentLayout } from '../../../components/UI/ContentLayout/ContentLayout'
 
 
 
@@ -20,7 +21,7 @@ export const ItAssets = () => {
    
 
     return (
-        <>
+        <ContentLayout>
         <div className="it-assets-container">
             <h1>ИТ-активы</h1>
             <ItAssetsTable setCurrentId={setCurrentId} />
@@ -40,6 +41,6 @@ export const ItAssets = () => {
             {/* <ItAssetsCalculate/> */}
             
             </div>
-        </>
+        </ContentLayout>
     )
 }

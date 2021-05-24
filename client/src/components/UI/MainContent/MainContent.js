@@ -9,11 +9,16 @@ import { Entity } from '../../../pages/overview/entity/Entity'
 import UpdatableEdge from '../../../pages/workflow/process-grading/ProcessGrading'
 import { Activities } from '../../../pages/assets/activities/Activities'
 import { CategorizationCommission } from '../../../pages/workflow/categorization-commission/СategorizationСommission'
+import { useSelector } from 'react-redux'
 
 
 export const MainContent = () => {
+
+    const sidebarMenu = useSelector(state => state.sidebarMenu)
+    const { hidden } = sidebarMenu
+
     return (
-        <div className="view-wrapper">
+        <div className={hidden ? `view-wrapper` : `is-pushed-full view-wrapper`}>
             <div className="page-content-wrapper">
                 <main className="page-content">
                     <Switch>

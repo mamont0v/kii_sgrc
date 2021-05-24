@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react'
 import './ItAssetsCalculate.styles.scss'
 
-export const ItAssetsCalculate = ({setShowModal}) => {
+export const ItAssetsCalculate = ({ setShowModal }) => {
+    //  Социальная значимость
+    /* 
+   ==========
+   Показатель 1
+   Причинение ущерба жизни и здоровью людей (человек)
+   ========== 
+   */
     function calcMark_1(event) {
         event.preventDefault();
         const result = parseInt(inputs.num1) + parseInt(inputs.num2)
@@ -21,7 +28,14 @@ export const ItAssetsCalculate = ({setShowModal}) => {
         console.log('Показатель 5 (3б):', result)
         handleCard3b({ result: result })
     }
-
+    
+    function calcMark_7(event) {
+        event.preventDefault();
+        const result = (parseInt(card5.num1) - parseInt(card5.num2))
+        console.log('Показатель 7 (5):', result)
+        handleCard5({ result: result })
+    }
+    
     // handleChange({ ...inputs, [e.target.name]: e.target.value })
 
     const [inputs, handleInputs] = useState({
@@ -50,7 +64,16 @@ export const ItAssetsCalculate = ({setShowModal}) => {
         num2: ''
     })
 
-
+    const [card4, handleCard4] = useState({
+        result: '',
+        num1: '',
+        num2: ''
+    })
+    const [card5, handleCard5] = useState({
+        result: '',
+        num1: '',
+        num2: ''
+    })
     let indicator = ''
     if (inputs.result >= 1 && inputs.result <= 50) {
         indicator = 'III категория значимости'
@@ -84,9 +107,32 @@ export const ItAssetsCalculate = ({setShowModal}) => {
         indicator3b_title = 'Категория отсутствует'
     }
 
+    let indicator4_title = ''
+    if (card4.result >= 3 && card4.result < 1000) {
+        indicator4_title = 'III категория значимости'
+    } else if (card4.result >= 1000 && card4.result < 5000) {
+        indicator4_title = 'II категория значимости'
+    } else if (card4.result >= 5000) {
+        indicator4_title = 'I категория значимости'
+    } else {
+        indicator4_title = 'Категория отсутствует'
+    }
+
+    let indicator5_title = ''
+    if (card5.result > 12 && card5.result <= 24) {
+        indicator5_title = 'III категория значимости'
+    } else if (card5.result > 6 && card5.result <= 12) {
+        indicator5_title = 'II категория значимости'
+    } else if (card5.result <= 6) {
+        indicator5_title = 'I категория значимости'
+    } else {
+        indicator5_title = 'Категория отсутствует'
+    }
+
+
     return (
         <div>
-        <h1 style={{float:'right', cursor:'pointer', color:'white'}} onClick={()=>setShowModal(prev=>!prev)}>ЗАКРЫТЬ</h1>
+            <h1 style={{ position: 'fixed', cursor: 'pointer', color: 'tomato', right: '25px' }} onClick={() => setShowModal(prev => !prev)}>X</h1>
             <h1>Калькулятор критических объектов КИИ</h1>
 
             <div className="calculation-card">
@@ -321,6 +367,93 @@ export const ItAssetsCalculate = ({setShowModal}) => {
                     </div>
                 </form>
             </div>
+
+
+            <div className="calculation-card">
+                <div className="calculation-card-header">
+                    <h3>{`Показатель 6 (4)`}</h3>
+                </div>
+
+                <form onSubmit={calcMark_5}>
+                    <h2 style={{ textAlign: 'center', color: 'tomato' }}>{indicator4_title}</h2>
+                    <h2>Показатель №4</h2>
+
+                    <p>Прекращение (полное) или нарушение функционирования сети связи, оцениваемое по количеству абонентов, для которых могут быть недоступны услуги связи (тыс. человек) </p>
+                    <div className='form-group'>
+                        <label htmlFor="num1">Введите тыс. человек</label>
+                        <input
+                            name='result'
+                            value={card4.result}
+                            type='text'
+                            id='result'
+                            autoComplete="off"
+                            placeholder="например 1000"
+                            onChange={(e) => handleCard4({ ...card4, result: e.target.value })} />
+                    </div>
+                    
+                </form>
+            </div>
+
+
+            <div className="calculation-card">
+                <div className="calculation-card-header">
+                    <h3>{`Показатель 7 (5)`}</h3>
+                </div>
+
+                <form onSubmit={calcMark_7}>
+                    <h2 style={{ textAlign: 'center', color: 'tomato' }}>{indicator5_title}</h2>
+                    <h2>Показатель №5 = {card5.num1 ? card5.num1 : `t устр`} - {card5.num2 ? card5.num2 : `t доп`}</h2>
+                    <p>Отсутствие доступа к государственной
+услуге, оцениваемое в максимальном
+допустимом времени, в течение которого
+государственная услуга может быть
+недоступна для получателей такой услуги
+(часов) (T)</p>
+
+                    <p><i><b>t устр</b> -на основании статистических данных за прошлый трехлетний период
+определяется усредненное время, требуемое для устранения последствий
+компьютерной атаки; в случае отсутствия статистических данных за
+прошлый трехлетний период, время, требуемое для устранения последствий
+компьютерной атаки, принимается равным минимально допустимому
+времени, в течение которого государственная услуга может быть недоступна, приведенному в п.5 Перечня показателей критериев значимости объектов
+критической информационной инфраструктуры Российской Федерации и их
+значений (t устр= 6 часов);</i></p>
+
+                    <p><i><b>t доп</b> - на основании административных регламентов оказания
+государственных услуг, определяющих период недоступности для оказания
+услуг, регламентов проведения профилактических работ ИС, ИТКС, АСУ
+организации сферы здравоохранения, определяется максимально
+допустимый период простоя.</i></p>
+                    <div className='form-group'>
+                        <label htmlFor="num1">t устр</label>
+                        <input
+                            name='num1'
+                            value={inputs.num1}
+                            type='text'
+                            id='num1'
+                            autoComplete="off"
+                            placeholder="t устр"
+                            onChange={(e) => handleCard5({ ...card5, num1: e.target.value })} />
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="num2">t доп</label>
+                        <input
+                            name='num2'
+                            value={inputs.num2}
+                            type='text'
+                            id='num2'
+                            autoComplete="off"
+                            placeholder="t доп"
+                            onChange={(e) => handleCard5({ ...card5, num2: e.target.value })} />
+                    </div>
+                    <div className="calculation-card-footer">
+                        <button type="submit">
+                            Вычислить
+                        </button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     )
 }

@@ -1,5 +1,7 @@
 .table {
     border-collapse: collapse;
+    color: #fff;
+    
     th {
 
     }
@@ -38,12 +40,15 @@
         }
         tr:hover{
             border: 1px solid rgb(184, 189, 255);
-            color: black;
+            color: #41b883;
         }
         tr:nth-child(even) {
-            background-color: rgb(163, 163, 163);
+            background-color: var(--color-2);
         }
-    
+        tr:nth-child(even):hover{
+            border: 1px solid rgb(184, 189, 255);
+            color: #41b883;
+        }
     }
 }
 
